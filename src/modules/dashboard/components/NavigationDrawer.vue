@@ -181,7 +181,7 @@ export default {
 .circle-avatar-style{
     width: 90px;
     height: 90px;
-    display: flex;
+    /* display: flex; */
     align-items: start;
     border-radius: 60px !important;
     margin-top: -4px;

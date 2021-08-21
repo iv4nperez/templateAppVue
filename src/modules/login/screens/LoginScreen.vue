@@ -103,9 +103,10 @@
 </template>
 <script>
 export default {
+    name:'LoginScreen',
     components:{
-        LayoutLogin: () => import('../modules/login/layouts/LoginLayout.vue'),
-        Bienvenida: () => import('../modules/login/components/Bienvenida.vue'),
+        LayoutLogin: () => import('../layouts/LoginLayout.vue'),
+        Bienvenida: () => import('../components/Bienvenida.vue'),
         // LogoCenterImage: () => import('../modules/login/components/LogoCenterImage.vue')
     },
     data(){
