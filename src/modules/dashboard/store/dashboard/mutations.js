@@ -3,3 +3,7 @@
 export const setErrorHttp =  ( state, payload ) => {
     state.errorHttp = payload;
 }
+
+export const setValueDrawer = ( state, payload ) => {
+    state.drawer = payload;
+}

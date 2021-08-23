@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from '../store/index'
+import store from '../store/index';
 
 export const http = async (method = 'GET', endPoint = '', params = {}) => {
     let result = '';

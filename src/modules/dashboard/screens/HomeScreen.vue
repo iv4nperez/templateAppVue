@@ -1,22 +1,13 @@
 <template>
   <DashboardLayout>
-    <div>
-      here content
-        <!-- <v-container fluid>
-            <v-row class="full-height" justify="center" align="center">
-                <div>
-                    <center>
-                        <v-img
-                            width="180"
-                            src="//ssl.gstatic.com/docs/doclist/images/empty_state_trash_v2.svg"
-                        ></v-img>
-                        <br>
-                        <span style="font-size: 18px">No hay elementos</span>
-                    </center>
-                </div>
-            </v-row>
-        </v-container> -->
-    </div>
+    <v-row>
+      <v-col>
+        <span>Aqui graficas</span>
+      </v-col>
+      <v-col>
+        <span>Aqui graficas</span>
+      </v-col>
+    </v-row>
   </DashboardLayout>
 </template>
 <script>

@@ -1,28 +1,47 @@
 <template>
     <LayoutLogin>
-        <div class="imageCarousel" fluid>
-            <v-row>
-                <v-col style="background: red">
+        <div>
+            <v-row class="style-container">
+                <v-col 
+                    class="animate__animated animate__fadeIn"
+                    style="background-color: #f6f7f9;border-left: 1px solid #e2e2e2;"
+                    v-if="breakPoint !== 'xs' && breakPoint !== 'sm'"
+                    xl="8"      
+                    lg="7" 
+                    md="7"  
+                    sm="0"
+                    cols="0"
+                >
                     <Bienvenida
-                        logoUri="https://wingunetworks.com/Caso-Exito/Diavaz/assets/img/Diavaz-logo.png"
+                        logoUri="https://cdnlogos.blob.core.windows.net/logos/General/LogoCotemarHorizontalFB.png"
                         :height="height"
-                        :width="120"
-                        text="PORTAL DE DESCARGAS NÓMINAS"
-                        description=""
-                        color="#000000"
+                        :width="250"
+                        text="Takin"
+                        description="Cotemar con 23 años trabajando costa afuera y preparando la mejor empresa"
+                        color="#757575"
                     />
                 </v-col>
-                <v-col  style="background: blue">
-                    <!-- <div key="1">
-                        <div class="ma-8">
+                <v-col
+                    class="animate__animated animate__fadeIn"
+                    style="border-left: 1px solid #dadada;"
+                    xl="4"
+                    lg="5"
+                    md="5"
+                    sm="12"
+                    cols="12"
+                >
+                    <div key="1">
+                        <div class="ma-8" style="padding: 30px;">
                             <LogoCenterImage
-                                url="https://admin.googleusercontent.com/logo-scs-key333195"
+                                url="https://logos-world.net/wp-content/uploads/2021/02/Spectrum-Emblem.png"
                                 width="250"
                                 :isText="false"
                                 text="Orion"
                                 color="#0e1924"
                             />
-                            <p>Login con tu Cuenta</p>
+                            <br>
+                            <br>
+                            <p>Login con tu cuenta</p>
 
                             <v-text-field
                                 type="text"
@@ -53,49 +72,53 @@
                                     ></v-checkbox>
                                 </v-col>
                                 <v-col class="RCol-01">
-                                    <a class="RCol-R-01">Recuperar contraseña</a>
+                                    <!-- <a class="RCol-R-01">Recuperar contraseña</a> -->
                                 </v-col>
                             </v-row>
 
+                            <v-row>
+                                <v-col>
+                                    <v-btn
+                                        type="submit"
+                                        style="font-weight: 600"
+                                        class="VBtn-L-01"
+                                        color="primary"
+                                    >
+                                        Login
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
 
+                            <center class="mt-5 mb-5">
+                                <span>OR</span>
+                            </center>
 
-                            <v-btn
-                                type="submit"
-                                style="font-weight: 600"
-                                class="VBtn-L-01"
-                                color="primary"
-                            >
-                                Login
-                            </v-btn>
-                            <v-btn
-                                class="VBtn-L-01 mt-5"
-                                color="white"
-                            >
-                                <img
-                                    class="mr-3"
-                                    src="@/assets/image/google.png"
-                                    alt=""
-                                />
-                                <span 
-                                    style="font-weight: 600; color: #5a5a5a"
-                                >
-                                    Google
-                                </span>
-    
-                            </v-btn>
+                            <v-row>
+                                <v-col>
+                                    <v-btn
+                                        class="VBtn-L-01"
+                                        color="white"
+                                    >
+                                        <img
+                                            class="mr-3"
+                                            src="@/assets/image/google.png"
+                                            alt=""
+                                        />
+                                        <span 
+                                            style="font-weight: 600; color: #5a5a5a"
+                                        >
+                                            Google
+                                        </span>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                            
+                            
                             <br />
                             <br />
-                            <center><span>¿No tienes cuenta?</span></center>
-                            <v-btn
-                                class="VBtn-L-01 mt-5"
-                                color="white"
-                            >
-                                <span style="font-weight: 600; color: #5a5a5a"
-                                    >Registrarse</span
-                                >
-                            </v-btn>
+                            
                         </div>
-                    </div> -->
+                    </div>
                 </v-col>
             </v-row>
         </div>
@@ -107,7 +130,7 @@ export default {
     components:{
         LayoutLogin: () => import('../layouts/LoginLayout.vue'),
         Bienvenida: () => import('../components/Bienvenida.vue'),
-        // LogoCenterImage: () => import('../modules/login/components/LogoCenterImage.vue')
+        LogoCenterImage: () => import('../components/LogoCenterImage.vue')
     },
     data(){
         return{
@@ -130,15 +153,20 @@ export default {
             }
 
             return 500;
+        },
+        breakPoint(){
+            return this.$vuetify.breakpoint.name;
         }
-    }
+    }   
+
 }
 </script>
 <style scoped>
-.imageCarousel {
-  /* background-color: #0e1924; */
-  height: 100%;
-  width: 100%;
+.style-container{
+    height: 100vh;
+    margin: 0px;
+    /* background-color: #f6f7f9; */
+    
 }
 
 .principal {

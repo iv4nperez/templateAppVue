@@ -3,5 +3,6 @@ export default () => ({
     errorHttp: {
         isError: false,
         message: ''
-    }
+    },
+    drawer: false
 })

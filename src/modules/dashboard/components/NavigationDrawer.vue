@@ -1,21 +1,23 @@
 <template>
+    <!-- otra opcion es usar 60px para el drawer minimizado -->
     <v-navigation-drawer
         permanent
-        :width="drawer ? '60' : '280'"
+        :width="showDrawer ? '60' : '280'"
         app
         :color="colorStyleBackground"
+        class="elevation-8"
     >
         <div 
             style="height: 64px"
             :style="`background: ${ colorStyleHeader }`"
         >
-            <div v-if="drawer">
+            <div v-if="showDrawer">
             <center>
                 <v-row>
                 <v-col>
                     <v-app-bar-nav-icon
                         style="margin-top: 13px"
-                        @click="drawer = !drawer"
+                        @click="showDrawer = !showDrawer"
                         dark
                     ></v-app-bar-nav-icon>
                 </v-col>
@@ -34,7 +36,7 @@
                 <v-col sm="3">
                 <v-app-bar-nav-icon
                     style="margin-top: 13px"
-                    @click="drawer = !drawer"
+                    @click="showDrawer = !showDrawer"
                     dark
                 ></v-app-bar-nav-icon>
                 </v-col>
@@ -42,12 +44,12 @@
             </div>
         </div>
 
-        <v-list style="padding-top: 0px" class="" dark :color="colorStyleBackground">
+        <div>
             <div 
                 style="height: 139px;"
                 :style="`background: ${ colorStyleHeader }`"    
             >
-            <div v-if="!drawer">
+            <div v-if="!showDrawer">
                 <br />
                 <p :style="`color: ${ colorFullName }`" class="mb-1 name-principal">
                     {{ fullName }}
@@ -83,24 +85,80 @@
             </div>
             <br />
             <br />
-            <v-subheader v-if="!drawer">APPLICATIONS</v-subheader>
-            <v-subheader v-else>------</v-subheader>
-            <template v-for="(item, i) in [1,2,3]">
-            <v-list-item dense :key="i" >
-                <v-list-item-action>
-                <v-icon>mdi-folder-download</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                <v-list-item-title class="white--text">
-                    Home
-                </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-            </template>
-        </v-list>
+            <v-subheader class="text-drawer" style="color:rgb(190, 193, 197);font-size: 13px;" v-if="!showDrawer">APPLICATIONS</v-subheader>
+            <v-subheader v-else style="color:rgb(190, 193, 197)">------</v-subheader>
+  
+
+            <v-list 
+                style="padding-top: 0px" 
+                nav 
+                dark 
+                dense 
+                :color="colorStyleBackground"
+            >
+                <template v-for="(item) in items">
+                    <template v-if="item.child">
+
+                        <v-list-group
+                            :value="true"
+                            color="gray"
+                            :key="item.id"
+                            no-action
+                        >
+                       
+                            <template v-slot:prependIcon >
+                                <v-icon color="rgb(190, 193, 197)" v-text="item.icon" ></v-icon>
+                            </template>
+
+                            <template v-slot:activator  >
+                                <v-list-item-content>
+                                    <v-list-item-title class="text-drawer-menu" v-text="item.title"></v-list-item-title>
+                                </v-list-item-content>
+                            </template>
+                            <v-list-item
+                                v-for="( child) in item.child"
+                                dark
+                                link
+                                :key="child.id"
+                                :to="child.to"
+                                @click.stop="navigateTo(child.to)"
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title class="text-drawer-menu" v-text="child.title" ></v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-group>
+
+                    </template>
+                    <template v-else>
+
+                        <v-list-item
+                                color="white"
+                                :key="item.title" 
+                                link 
+                                :to="item.to" 
+                            >
+                                <v-list-item-icon>
+                                    <v-icon color="rgb(190, 193, 197)">{{ item.icon }}</v-icon> 
+                                </v-list-item-icon>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>
+                                        <span class="text-drawer-menu" >{{ item.title }}</span>
+                                    </v-list-item-title>
+                                </v-list-item-content>     
+                            </v-list-item>
+                    </template>
+
+
+                </template>
+                
+            </v-list>
+        </div>
     </v-navigation-drawer>
 </template>
 <script>
+import { mapMutations, mapState } from 'vuex';
 export default {
     props: {
         colorStyleBackground: {
@@ -138,22 +196,77 @@ export default {
     },
     data(){
         return {
-            drawer: null
+            value: false,
+            items: [
+                {
+                    id: 1,
+                    icon: 'mdi-view-dashboard-outline',
+                    title: 'Dashboard',
+                    to: '/'
+                },
+                {
+                    id: 2,
+                    icon: 'mdi-view-dashboard-outline',
+                    title: 'Components',
+                    child: [
+                        { 
+                            id: 4,
+                            title: 'Calendar',
+                            to: '/calendar' 
+                        },
+                        { 
+                            id: 5,
+                            title: 'Login v1',
+                            to: '/login' 
+                        },
+                        { 
+                            id: 6,
+                            title: 'Login v2',
+                            to: '/loginv2' 
+                        }
+                    ],
+                },
+                {
+                    id: 3,
+                    icon: 'mdi-checkbox-multiple-blank-outline',
+                    title: 'Example Screen',
+                    child: [
+                        { 
+                            id: 7,
+                            title: 'About',
+                            to: 'About' 
+                        },
+                    ],
+                },
+                
+            ],
         }
     },
     methods:{
+        ...mapMutations('dashboard', ['setValueDrawer']),
+        navigateTo(to){
+            this.$router.push({path: to});
+        },
         setSizeScreen(){
             if( this.autoSize ){
                 if( this.breakPoint === 'xs' || this.breakPoint === 'sm' || this.breakPoint === 'md' ){
-                    this.drawer = true;
+                    this.showDrawer = true;
                 }else{
-                    this.drawer = false;
+                    this.showDrawer = false;
                 }
             }
         }
     },
     computed:{
-
+        ...mapState('dashboard', ['drawer']),
+        showDrawer:{
+            get () {
+                return this.drawer;
+            },
+            set (value) {
+                this.setValueDrawer( value );
+            }
+        }
     },
     watch:{
         breakPoint(){
@@ -166,6 +279,15 @@ export default {
 }
 </script>
 <style scoped>
+
+.text-drawer{
+    color: rgb(190, 193, 197);
+    font-weight: bold;
+}
+.text-drawer-menu{
+    color:rgb(190, 193, 197);
+    font-size:13px;
+}
 .name-principal{
     margin-bottom: 7px;
     font-size: 15px;
@@ -186,4 +308,5 @@ export default {
     border-radius: 60px !important;
     margin-top: -4px;
 }
+
 </style>

@@ -6,14 +6,20 @@
             colorAppBar="white"
             outline
         >
+            
+
+            <AppBarProfile
+
+            ></AppBarProfile>
+
             <AppModulesCotemar 
                 labelModules="Spectrum Apps"
             />
         </AppBar>
         
         <NavigationDrawer 
-            colorStyleBackground="#121212"
-            colorStyleHeader="#192d3e"
+            colorStyleBackground="#252f3e"
+            colorStyleHeader="#1b2330"
             :breakPoint="this.$vuetify.breakpoint.name"
             :autoSize="true"
             colorFullName="white"
@@ -26,6 +32,9 @@
             <slot />
         </v-main>
 
+
+        <AppBarNotification />
+
     </v-app>
 </template>
 <script>
@@ -33,7 +42,9 @@ export default {
     components:{
         AppBar: () => import('../components/AppBar.vue'),
         NavigationDrawer: () => import('../components/NavigationDrawer.vue'),
-        AppModulesCotemar: () => import('../components/AppModulesCotemar.vue')
+        AppModulesCotemar: () => import('../components/AppModulesCotemar.vue'),
+        AppBarNotification: () => import('../components/AppBarNotification.vue'),
+        AppBarProfile: () => import('../components/AppBarProfile.vue')
     }
 }
 </script>
