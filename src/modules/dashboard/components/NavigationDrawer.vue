@@ -100,7 +100,7 @@
                     <template v-if="item.child">
 
                         <v-list-group
-                            :value="true"
+                            
                             color="gray"
                             :key="item.id"
                             no-action

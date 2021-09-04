@@ -83,6 +83,7 @@
                                         style="font-weight: 600"
                                         class="VBtn-L-01"
                                         color="primary"
+                                        @click="loginAuth"
                                     >
                                         Login
                                     </v-btn>
@@ -125,6 +126,7 @@
     </LayoutLogin>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
     name:'LoginScreen',
     components:{
@@ -136,6 +138,9 @@ export default {
         return{
             showPassword: false,
         }
+    },
+    methods:{
+        ...mapActions('login', ['loginAuth'])
     },
     computed: {
         height () {

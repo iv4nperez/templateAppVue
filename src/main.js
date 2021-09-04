@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import { setConnection } from "./helpers/connection";
 
 
 import '../src/assets/fonts/ProductSans-Black.woff'
@@ -15,6 +16,9 @@ import '../src/assets/fonts/ProductSans-Italic.woff'
 import '../src/assets/fonts/ProductSans-Medium.woff'
 import '../src/assets/fonts/ProductSans-Regular.woff'
 import '../src/assets/fonts/ProductSans-Thin.woff'
+
+
+setConnection();
 
 Vue.config.productionTip = false
 
