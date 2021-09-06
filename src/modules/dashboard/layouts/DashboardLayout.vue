@@ -25,7 +25,7 @@
             <!-- primary-full-white -->
         <NavigationDrawer 
             :items="menu"
-            styleBackground="primary-white"
+            :styleBackground="currentStyle"
             :breakPoint="this.$vuetify.breakpoint.name"
             :autoSize="true"
             colorFullName="white"
@@ -76,7 +76,7 @@ export default {
         ...mapMutations('dashboard', ['setCurrentUser'])
     },
     computed:{
-        ...mapState('dashboard', ['currentUser']),
+        ...mapState('dashboard', ['currentUser','currentStyle']),
         currentRole(){
             return this.currentUser.roles[0].NameRole || 'sin rol'
         }

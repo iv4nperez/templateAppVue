@@ -11,3 +11,7 @@ export const setValueDrawer = ( state, payload ) => {
 export const setCurrentUser = ( state, payload ) => {
     state.currentUser = payload;
 }
+
+export const setCurrentStyle = ( state, payload) => {
+    state.currentStyle = payload
+}

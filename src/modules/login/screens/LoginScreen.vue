@@ -140,8 +140,8 @@ export default {
         return{
             showPassword: false,
             user: {
-                UserName: "edvazqueze",
-                Password: `Cotemar053`,
+                UserName: '',
+                Password: '',
                 DirectorioActivo: true,
                 RemenberMe: false,
                 TypeCredential: 0,

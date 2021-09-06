@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col sm="11">
+      <v-col sm="10">
         <div>
           <span 
             class="title" >Hola <b style="color:#29307d">{{currentUser.fullNameComplete}}</b></span><br>
@@ -10,7 +10,11 @@
         </div>
       </v-col>
       <v-col>
-        fecha
+        <v-select
+          v-model="styleTemplate"
+          label="style template"
+          :items="styles"
+        ></v-select>
       </v-col>
     </v-row>
     <v-row>
@@ -68,7 +72,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   name:'HomeScreen',
   components:{
@@ -76,8 +80,24 @@ export default {
     ChartsRounded: () => import('../components/charts/ChartsRounded.vue'),
     //ChartsPie: () => import('../components/charts/ChartsPie.vue')
   },
+  data(){
+    return{
+      styles:['primary-white','orange-white','primary-sky-white','gray-white','primary-full-white']
+    }
+  },
+  methods:{
+    ...mapMutations('dashboard', ['setCurrentStyle'])
+  },
   computed:{
-    ...mapState('dashboard', ['currentUser'])
+    ...mapState('dashboard', ['currentUser','currentStyle']),
+    styleTemplate:{
+      get(){
+        return this.currentStyle;
+      },
+      set( value ){
+        this.setCurrentStyle( value )
+      }
+    }
   }
 }
 </script>
