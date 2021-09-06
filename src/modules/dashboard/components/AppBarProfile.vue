@@ -11,14 +11,14 @@
         >
           <v-row>
               <v-col class="text-end">
-                  <span class="role-user-name">Armando Ivan Perez Chan</span><br>
-                  <span class="role-user">Admin</span>
+                  <span class="role-user-name">{{ fullName }}</span><br>
+                  <span class="role-user">{{ role }}</span>
               </v-col>
               <v-col style="padding-left: 0px;">
                     <v-avatar
                         size="35"
                     >
-                        <img color="teal" left size="40" src="@/assets/user.png" />
+                        <img color="teal" left size="40" :src="imgUser" />
                     </v-avatar>
               </v-col>
           </v-row>
@@ -28,7 +28,7 @@
         <v-list-item
           v-for="(item, index) in items"
           :key="index"
-          @click="()=>{}"
+          @click="item.eventClick"
           dense
         >
             <v-list-item-icon>
@@ -44,16 +44,38 @@
 </template>
 
 <script>
+import router from "../../../router";
+
 export default {
     name:'AppBarProfile',
+    props:{
+      fullName: {
+        type: String,
+        required: true
+      },
+      role: {
+        type: String,
+        required: true
+      },
+      imgUser: {
+        type: String,
+        required: true
+      }
+    },
     data(){
         return{
             items: [
-                { title: 'My Profile', icon:'mdi-account-outline' },
-                { title: 'Logout',icon: 'mdi-logout-variant' },
+                { title: 'My Profile', icon:'mdi-account-outline', eventClick: () => {} },
+                { title: 'Logout',icon: 'mdi-logout-variant', eventClick: () => this.logout() },
             ]
 
         }
+    },
+    methods:{
+      logout(){
+        localStorage.clear();
+        router.push('/login')
+      }
     }
 }
 </script>

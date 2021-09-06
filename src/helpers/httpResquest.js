@@ -1,5 +1,15 @@
 import axios from "axios";
+// import { getToken } from "../modules/login/helpers/localStorageHelper";
 import store from '../store/index';
+
+// let tokenConfig = getToken();
+
+const headerConfig = {
+    Accept: "application/json",
+    "Content-Type": "application/json;charset=UTF-8",
+    // 'Authorization': `${tokenConfig?.token_type} ${tokenConfig?.access_token}`
+}
+
 
 export const http = {
     
@@ -11,10 +21,7 @@ export const http = {
                     method: 'GET',
                     url: endPoint,
                     params: params,
-                    headers:{
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
-                    }
+                    headers: headerConfig
                 }).then( result => {
                     resolve(result)
                 }).catch(error => {
@@ -29,6 +36,7 @@ export const http = {
     },
     
     post: function ( endPoint = "", params = {} ,nameUlrBase = settingHttp.urlBase[0].name ) {
+
         let urlBase = getUrlBaseByName( nameUlrBase );
 
         return new Promise(( resolve, reject ) => {
@@ -37,13 +45,12 @@ export const http = {
                     method: 'POST',
                     url: endPoint,
                     data: JSON.stringify( params ),
-                    headers:{
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
-                    }
+                    headers: headerConfig 
                 }).then( result => {
+                   
                     resolve(result)
                 }).catch(error => {
+                    
                     store.commit('dashboard/setErrorHttp',{
                         isError: true,
                         message: error.toString(),
@@ -63,10 +70,7 @@ export const http = {
                     method: 'PUT',
                     url: endPoint,
                     data: JSON.stringify( params ),
-                    headers:{
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
-                    }
+                    headers: headerConfig
                 }).then( result => {
                     resolve(result)
                 }).catch(error => {
@@ -89,10 +93,7 @@ export const http = {
                     method: 'DELETE',
                     url: endPoint,
                     data: JSON.stringify( params ),
-                    headers:{
-                        Accept: "application/json",
-                        "Content-Type": "application/json;charset=UTF-8",
-                    }
+                    headers: headerConfig
                 }).then( result => {
                     resolve(result)
                 }).catch(error => {

@@ -1,5 +1,5 @@
 <template>
-    <DashboardLayout>
+    <div>
         <v-sheet
             elevation="3"
             tile
@@ -63,13 +63,13 @@
                 @change="getEvents"
             ></v-calendar>
         </v-sheet>
-    </DashboardLayout>
+    </div>
 </template>
 <script>
 export default {
     name:'LoginScreen',
     components:{
-        DashboardLayout: () => import('../../dashboard/layouts/DashboardLayout.vue')
+        //DashboardLayout: () => import('../../dashboard/layouts/DashboardLayout.vue')
     },
     data(){
         return {

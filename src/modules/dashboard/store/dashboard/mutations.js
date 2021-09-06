@@ -7,3 +7,7 @@ export const setErrorHttp =  ( state, payload ) => {
 export const setValueDrawer = ( state, payload ) => {
     state.drawer = payload;
 }
+
+export const setCurrentUser = ( state, payload ) => {
+    state.currentUser = payload;
+}

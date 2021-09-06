@@ -46,6 +46,7 @@
                             <v-text-field
                                 type="text"
                                 outlined
+                                v-model="user.UserName"
                             >
                                 <div slot="label">
                                 Email <b style="color: red">*</b>
@@ -57,6 +58,7 @@
                                 :type="showPassword ? 'text' : 'password'"
                                 @click:append="showPassword = !showPassword"
                                 outlined
+                                v-model="user.Password"
                             >
                                 <div slot="label">
                                 Password <b style="color: red">*</b>
@@ -83,7 +85,7 @@
                                         style="font-weight: 600"
                                         class="VBtn-L-01"
                                         color="primary"
-                                        @click="loginAuth"
+                                        @click="login"
                                     >
                                         Login
                                     </v-btn>
@@ -137,10 +139,21 @@ export default {
     data(){
         return{
             showPassword: false,
+            user: {
+                UserName: "edvazqueze",
+                Password: `Cotemar053`,
+                DirectorioActivo: true,
+                RemenberMe: false,
+                TypeCredential: 0,
+            },
         }
     },
     methods:{
-        ...mapActions('login', ['loginAuth'])
+        ...mapActions('login', ['loginAuth']),
+        login(){
+            this.user.TypeCredential = 1;
+            this.loginAuth( this.user )
+        }
     },
     computed: {
         height () {

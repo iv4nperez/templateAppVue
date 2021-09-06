@@ -10,7 +10,7 @@ export const setConnection = () => {
                 url: 'https://jsonplaceholder.typicode.com', name:'apiac'
             },
             {
-                url: 'https://google.com', name:'google'
+                url: 'https://appsdev.cotemar.com.mx/IDMApi/api', name:'IDM'
             }
         ]
     }else{
@@ -21,9 +21,10 @@ export const setConnection = () => {
                 url: 'https://jsonplaceholder.typicode.com', name:'apiac'
             },
             {
-                url: 'https://google.com', name:'google'
+                url: 'https://appsdev.cotemar.com.mx/IDMApi/api', name:'IDM'
             }
         ]
     }
 
 }
+

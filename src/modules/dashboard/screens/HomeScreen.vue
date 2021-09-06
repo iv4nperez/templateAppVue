@@ -1,5 +1,5 @@
 <template>
-  <DashboardLayout>
+  <div>
     <v-row>
       <v-col>
         <span>Aqui graficas</span>
@@ -8,13 +8,13 @@
         <span>Aqui graficas</span>
       </v-col>
     </v-row>
-  </DashboardLayout>
+  </div>
 </template>
 <script>
 export default {
   name:'HomeScreen',
   components:{
-    DashboardLayout : () => import('@/modules/dashboard/layouts/DashboardLayout.vue')
+    //DashboardLayout : () => import('@/modules/dashboard/layouts/DashboardLayout.vue')
   }
 }
 </script>

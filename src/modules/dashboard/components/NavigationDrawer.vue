@@ -4,12 +4,12 @@
         permanent
         :width="showDrawer ? '60' : '280'"
         app
-        :color="colorStyleBackground"
+        :color="settingColor.colorStyleBackground"
         class="elevation-8"
     >
         <div 
             style="height: 64px"
-            :style="`background: ${ colorStyleHeader }`"
+            :style="`background: ${ settingColor.colorStyleHeader }`"
         >
             <div v-if="showDrawer">
             <center>
@@ -47,7 +47,7 @@
         <div>
             <div 
                 style="height: 139px;"
-                :style="`background: ${ colorStyleHeader }`"    
+                :style="`background: ${ settingColor.colorStyleHeader }`"    
             >
             <div v-if="!showDrawer">
                 <br />
@@ -60,18 +60,18 @@
                 <br />
                 <center>
                 <div
-                    :style="`background:${ colorStyleBackground }`"
+                    :style="`background:${ settingColor.colorStyleBackground }`"
                     class="circle-avatar-style"
                 >
                     <v-card-text>
                     <v-avatar
                         style="margin-left: -7px; margin-top: -7px"
                         class="mr-2"
-                        :color="colorStyleBackground"
+                        :color="settingColor.colorStyleBackground"
                         left
                         size="72"
                     >
-                        <img src="@/assets/user.png" />
+                        <img :src="imgUser" />
                     </v-avatar>
                     </v-card-text>
                 </div>
@@ -79,44 +79,47 @@
             </div>
             <div v-else>
                 <v-avatar class="ml-2 mt-4" size="42">
-                <img src="@/assets/user.png" />
+                <img :src="imgUser" />
                 </v-avatar>
             </div>
             </div>
             <br />
             <br />
-            <v-subheader class="text-drawer" style="color:rgb(190, 193, 197);font-size: 13px;" v-if="!showDrawer">APPLICATIONS</v-subheader>
+            <v-subheader class="text-drawer" 
+                style="font-size: 13px;" 
+                :style="`color: ${ settingColor.colorTextBackground }`"
+                v-if="!showDrawer">APPLICATIONS</v-subheader>
             <v-subheader v-else style="color:rgb(190, 193, 197)">------</v-subheader>
   
 
             <v-list 
                 style="padding-top: 0px" 
                 nav 
-                dark 
                 dense 
-                :color="colorStyleBackground"
+                :color="settingColor.colorStyleBackground"
             >
                 <template v-for="(item) in items">
-                    <template v-if="item.child">
+                    <template v-if="item.children">
 
                         <v-list-group
-                            
                             color="gray"
                             :key="item.id"
                             no-action
                         >
                        
                             <template v-slot:prependIcon >
-                                <v-icon color="rgb(190, 193, 197)" v-text="item.icon" ></v-icon>
+                                <v-icon :color="settingColor.colorTextBackground" v-text="item.icon" ></v-icon>
                             </template>
 
                             <template v-slot:activator  >
                                 <v-list-item-content>
-                                    <v-list-item-title class="text-drawer-menu" v-text="item.title"></v-list-item-title>
+                                    <v-list-item-title 
+                                        :style="`color: ${ settingColor.colorTextBackground }`"
+                                        class="text-drawer-menu" v-text="item.title"></v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item
-                                v-for="( child) in item.child"
+                                v-for="( child) in item.children"
                                 dark
                                 link
                                 :key="child.id"
@@ -124,7 +127,9 @@
                                 @click.stop="navigateTo(child.to)"
                             >
                                 <v-list-item-content>
-                                    <v-list-item-title class="text-drawer-menu" v-text="child.title" ></v-list-item-title>
+                                    <v-list-item-title 
+                                        :style="`color: ${ settingColor.colorTextBackground }`"
+                                        class="text-drawer-menu" v-text="child.title" ></v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
                         </v-list-group>
@@ -133,18 +138,20 @@
                     <template v-else>
 
                         <v-list-item
-                                color="white"
+                                color="red"
                                 :key="item.title" 
                                 link 
                                 :to="item.to" 
                             >
                                 <v-list-item-icon>
-                                    <v-icon color="rgb(190, 193, 197)">{{ item.icon }}</v-icon> 
+                                    <v-icon :color="settingColor.colorTextBackground">{{ item.icon }}</v-icon> 
                                 </v-list-item-icon>
 
                                 <v-list-item-content>
                                     <v-list-item-title>
-                                        <span class="text-drawer-menu" >{{ item.title }}</span>
+                                        <span 
+                                            :style="`color: ${ settingColor.colorTextBackground }`"
+                                            class="text-drawer-menu" >{{ item.title }}</span>
                                     </v-list-item-title>
                                 </v-list-item-content>     
                             </v-list-item>
@@ -161,14 +168,14 @@
 import { mapMutations, mapState } from 'vuex';
 export default {
     props: {
-        colorStyleBackground: {
-            type: String,
-            default: '#121212'
-        },
-        colorStyleHeader:{
-            type: String,
-            default: '#192d3e'
-        },
+        // colorStyleBackground: {
+        //     type: String,
+        //     default: '#121212'
+        // },
+        // colorStyleHeader:{
+        //     type: String,
+        //     default: '#192d3e'
+        // },
         colorFullName:{
             type: String,
             default: 'white'
@@ -192,54 +199,70 @@ export default {
         email:{
             type: String,
             default: ''
+        },
+        imgUser:{
+            type: String,
+            required: true
+        },
+        textDark:{
+            type: Boolean,
+            default: false
+        },
+        styleBackground:{
+            type: String,
+            default: 'primary-white'
+        },
+        items:{
+            type: Array,
+            required: true
         }
     },
     data(){
         return {
             value: false,
-            items: [
-                {
-                    id: 1,
-                    icon: 'mdi-view-dashboard-outline',
-                    title: 'Dashboard',
-                    to: '/'
-                },
-                {
-                    id: 2,
-                    icon: 'mdi-view-dashboard-outline',
-                    title: 'Components',
-                    child: [
-                        { 
-                            id: 4,
-                            title: 'Calendar',
-                            to: '/calendar' 
-                        },
-                        { 
-                            id: 5,
-                            title: 'Login v1',
-                            to: '/login' 
-                        },
-                        { 
-                            id: 6,
-                            title: 'Login v2',
-                            to: '/loginv2' 
-                        }
-                    ],
-                },
-                {
-                    id: 3,
-                    icon: 'mdi-checkbox-multiple-blank-outline',
-                    title: 'Example Screen',
-                    child: [
-                        { 
-                            id: 7,
-                            title: 'About',
-                            to: 'About' 
-                        },
-                    ],
-                },
+            // items: [
+            //     {
+            //         id: 1,
+            //         icon: 'mdi-view-dashboard-outline',
+            //         title: 'Dashboard',
+            //         to: '/inicio'
+            //     },
+            //     {
+            //         id: 2,
+            //         icon: 'mdi-view-dashboard-outline',
+            //         title: 'Components',
+            //         child: [
+            //             { 
+            //                 id: 4,
+            //                 title: 'Calendar',
+            //                 to: '/calendar' 
+            //             },
+            //             { 
+            //                 id: 5,
+            //                 title: 'Login v1',
+            //                 to: '/login' 
+            //             },
+            //             { 
+            //                 id: 6,
+            //                 title: 'Login v2',
+            //                 to: '/loginv2' 
+            //             }
+            //         ],
+            //     },
+            //     {
+            //         id: 3,
+            //         icon: 'mdi-checkbox-multiple-blank-outline',
+            //         title: 'Example Screen',
+            //         child: [
+            //             { 
+            //                 id: 7,
+            //                 title: 'About',
+            //                 to: 'About' 
+            //             },
+            //         ],
+            //     },
                 
-            ],
+            // ],
         }
     },
     methods:{
@@ -266,6 +289,47 @@ export default {
             set (value) {
                 this.setValueDrawer( value );
             }
+        },
+        settingColor(){
+
+            switch( this.styleBackground ){
+                case 'primary-white': 
+                    return {
+                        colorStyleHeader:'#29307d',
+                        colorStyleBackground:'#ffffff',
+                        colorTextBackground: '#5e5c5b'
+                    };
+                case 'primary-full-white': 
+                    return {
+                        colorStyleHeader:'#1b2330',
+                        colorStyleBackground:'#252f3e',
+                        colorTextBackground: '#c9ccd0'
+                    };
+                case 'orange-white': 
+                    return {
+                        colorStyleHeader:'#ff5000',
+                        colorStyleBackground:'#ffffff',
+                        colorTextBackground: '#5e5c5b'
+                    }
+                case 'primary-sky-white': 
+                    return {
+                        colorStyleHeader:'#1d99d6',
+                        colorStyleBackground:'#ffffff',
+                        colorTextBackground: '#5e5c5b'
+                    }
+                case 'gray-white': 
+                    return {
+                        colorStyleHeader:'#405565',
+                        colorStyleBackground:'#ffffff',
+                        colorTextBackground: '#5e5c5b'
+                    }
+               
+                default:
+                    return {
+                        colorStyleHeader:'#252f3e',
+                        colorStyleBackground:'#1b2330',
+                    }
+            }
         }
     },
     watch:{
@@ -285,7 +349,6 @@ export default {
     font-weight: bold;
 }
 .text-drawer-menu{
-    color:rgb(190, 193, 197);
     font-size:13px;
 }
 .name-principal{

@@ -12,6 +12,7 @@
                             <v-btn 
                                 outlined 
                                 color="white" 
+                                @click="showRouter"
                             >
                                 Regresar...
                             </v-btn>
@@ -24,7 +25,12 @@
 </template>
 <script>
 export default {
-    name:'NoScreenNotFound'
+    name:'NoScreenNotFound',
+    methods:{
+        showRouter(){
+            console.log(this.$router.options.routes)
+        }
+    }
 }
 </script>
 
