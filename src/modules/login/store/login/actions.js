@@ -4,7 +4,7 @@ import { applicationName } from '../../../../helpers/applicationName';
 import { http } from "../../../../helpers/httpResquest";
 import { getCurrentUser } from '../../helpers/currentUser';
 import { saveCurrentUser, saveToken } from '../../helpers/localStorageHelper';
-import { buildMenu, buildRoutes } from '../../helpers/menuIDM';
+import { /*buildMenu,*/ buildRoutes } from '../../helpers/menuIDM';
 import router from "../../../../router";
 // Las Actions son tareas asincronas que pueden llamar una mutacion
 
@@ -40,10 +40,7 @@ export const loginAuth = async (context , payload ) => {
             const currentUser = getCurrentUser( IDMInformation );
             saveCurrentUser( currentUser );
             
-            buildMenu( resourceIMD );
-
-            router.push('/calendar')
-
+            router.push('/Home')
         }
 
     }   

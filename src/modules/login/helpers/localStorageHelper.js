@@ -15,13 +15,13 @@ export const saveRoutes = ( value ) => {
 export const getRoutes = () => {
     return JSON.parse( localStorage.getItem(`${applicationName.AppNameSecurity}-routes`));
 }
-export const saveMenu = ( value ) => {
-    localStorage.setItem( `${applicationName.AppNameSecurity}-menu`, JSON.stringify(value) );
-}
+// export const saveMenu = ( value ) => {
+//     localStorage.setItem( `${applicationName.AppNameSecurity}-menu`, JSON.stringify(value) );
+// }
 
-export const getMenu = () => {
-    return JSON.parse( localStorage.getItem(`${applicationName.AppNameSecurity}-menu`));
-}
+// export const getMenu = () => {
+//     return JSON.parse( localStorage.getItem(`${applicationName.AppNameSecurity}-menu`));
+// }
 
 export const saveCurrentUser = ( value ) => {
     localStorage.setItem( `${applicationName.AppNameSecurity}-user-information`, JSON.stringify(value) );

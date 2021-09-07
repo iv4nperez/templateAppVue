@@ -19,9 +19,9 @@ import '../src/assets/fonts/ProductSans-Thin.woff'
 
 setConnection();
 
-rebuildRoutes();
 
-console.log(router.options.routes)
+
+rebuildRoutes()
 
 Vue.config.productionTip = false;
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import { getTokenInformation } from '../modules/login/helpers/localStorageHelper'
 
 Vue.use(VueRouter)
 
@@ -35,7 +36,7 @@ const routes = [
   //   path: '/:pathMatch(.*)*',
   //   name: '404',
   //   component: () => import(/* webpackChunkName: "NoScreenNotFound" */ '@/modules/shared/screens/NoScreenNotFound.vue')
-  // },
+  // }
 ]
 
 
@@ -43,5 +44,18 @@ const router = new VueRouter({
   routes
 })
 
+
+// router.beforeEach((to, from, next) => {
+//   const rutaProtegida = to.matched.some((record) => record.meta.requireAuth);
+//   const tokens = getTokenInformation();
+  
+//   if ((rutaProtegida || !rutaProtegida) && tokens === null) {
+//     next({ name: "Login" });
+//   } else if (!rutaProtegida && tokens !== null && to.name === "Login") {
+//     next({ name: "Home" });
+//   } else {
+//     next();
+//   }
+// });
 
 export default router

@@ -1,91 +1,120 @@
 // import { http } from "../../../helpers/httpResquest";
 import router from "../../../router";
-import { saveMenu, saveRoutes } from "./localStorageHelper";
-export const buildMenu = ( webRoutes = [] ) => {
-    let buildingMenu = [];
+import { /* saveMenu,*/ getRoutes, saveRoutes 
+} from "./localStorageHelper";
+export const buildMenu = () => {
+    
+    let routesItems = getRoutes();
+    if (routesItems === null) return;
 
+    let itemsMenu = [];
+    let contador = 0;
+    routesItems.forEach(element => {
+        if ( element.hasChild ) {
+            contador += 1;
+            let itemRoute = {
+                id: contador,
+                icon: element.icon,
+                title: element.name,
+            };
 
-
-    let parentScreen = []
-    webRoutes.forEach(element => {
-        parentScreen.push( element.ParentScreen )
-    });
-
-    const dataArr = new Set(parentScreen);
-    let resultKeyParents = [...dataArr];
-
-    resultKeyParents.forEach(element => {
-        
-        let childrens = webRoutes.filter( item => item.ParentScreen === element )
-
-        if ( childrens.length > 1 ) {
-            
-            let moreChildparent = {
-                icon: childrens[0].ParentIcon,
-                title: childrens[0].ParentScreen,
-                children: childrens.map( child => ({
-                    id: child.ScreenId,
-                    icon: child.Icon,
-                    title: child.ScreenName,
-                    to: `/${child.ScreenName.toLowerCase()}`
-                }))
+            if ( element.name != "404") {
+                let itemsChild = [];
+    
+                element.children.forEach((childItem) => {
+                    let itemSubModel = {
+                        id:                 childItem.id,
+                        title:              childItem.name,
+                        icon:               childItem.icon,
+                        to: element.path +  childItem.path,
+                        tooltip:            childItem.tooltip
+                    };
+    
+                    itemsChild.push(itemSubModel);
+                });
+    
+                itemRoute.child = itemsChild;
+                itemsMenu.push(itemRoute);
             }
-
-            buildingMenu.push( moreChildparent )
-        }else {
-            // debugger
-            // let onlyParent = {
-            //     icon: childrens[0].Icon,
-            //     title: childrens[0].ScreenName,
-            //     to: 
-            // }
-            // console.log(onlyParent)
         }
 
+        
     });
 
-    saveMenu(buildingMenu)
+    return itemsMenu;
 
 }
 
 export const buildRoutes = async ( webRoutes = [] ) => {
-    //esta construccion de rutas solo trabaja con IDM
-    let buildingRoutes = [];
-    let buildindChilds = []
-    let parentRoute = {
-        path: '/',
-        name: 'Home',
-        component: () => import(/* webpackChunkName: "LoginLayout" */ '@/modules/dashboard/layouts/DashboardLayout.vue'),
+
+    let principalRoutes = [];
+    webRoutes.forEach(element => {
+
+        let route = {
+            name: element.ParentScreen,
+            icon: element.ParentIcon,
+            order: element.ParentOrder,
+            hasChild: true,
+            meta:{requireAuth:true},
+            component: () => import(/* webpackChunkName: "HomeScreen" */ '@/modules/dashboard/layouts/DashboardLayout.vue'),
+        }   
+
+        let existe = principalRoutes.filter(x => x.name === element.ParentScreen ).length;
+
+        if ( existe === 0 ) {
+            principalRoutes.push(route);
+        }
+        
+    });
+
+    //Agregamos la pagina de errores
+    let noFoundNoPage = {
+        icon:'',
+        path: '/:pathMatch(.*)*',
+        name: '404',
+        order: 0 ,
+        // hasChild: true,
+        // props: true,
+        component: () => import('@/modules/shared/screens/NoScreenNotFound.vue')
     }
 
-    webRoutes.forEach(element => {
+    principalRoutes.push( noFoundNoPage );
+
+    let childRoutes = [];
+    principalRoutes.forEach( element => {
+
+        let childRoute = webRoutes.filter( x => x.ParentScreen === element.name );
         
-        let routeWeb = {
-            // parent: element.ParentScreen,
-            path: `/${element.ScreenName.toLowerCase()}`,
-            name: element.ScreenName,
-            component: () => import( /* webpackChunkName: "group" */ "@/modules/" + element.ActionUrl + ".vue"),
-            import: "@/modules/" + element.ActionUrl + ".vue",
-            meta:{
-                requireAuth: true
-            },
-        }
-        buildindChilds.push(routeWeb)
-        //se setean las rutas en el router
+        let modelChild = childRoute.map((item) => ({
+            id: item.ScreenId,
+            name: item.ScreenName,
+            icon:item.Icon,
+            import:item.ActionUrl,
+            path:`${item.ScreenName}`,
+            tooltip:item.Tooltip        
+        }));
+
+        element.children = modelChild;
+        
+        if ( childRoute.length > 0 ) {
+            element.path='/' + element.name + '/'
+        }   
+    
+        childRoutes.push(element);
     });
-    //se asignas las rutas hijas al unico padre
-    parentRoute.children = buildindChilds
 
-    //se agrega el padre con las rutas hijas
-    buildingRoutes.push( parentRoute )
+    
+    childRoutes.forEach(element => {
+        element.children.forEach( item => {
+            item.component = () => import('@/modules/' + item.import + '.vue');
+        }); 
+    });
 
-    buildingRoutes.forEach(element => {
-        //se agrega al router
+    childRoutes.forEach(element => {
         router.addRoute( element );
     });
-    
-    //se agregan al router
-    router.options.routes = [...buildingRoutes, ...router.options.routes]
-    
-    saveRoutes( buildingRoutes );
+
+
+    router.options.routes = [/*...state.originalRoutes,*/ ...childRoutes]
+    saveRoutes(router.options.routes)
 }

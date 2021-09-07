@@ -1,27 +1,34 @@
 import { getRoutes } from "../modules/login/helpers/localStorageHelper"
 import router from "../router";
 
-
 export const rebuildRoutes = () => {
     
-    //se obtienen todas las rutas
-    let routerLocal = getRoutes();
+    const itemMenu = getRoutes();
 
-    if( routerLocal === null ) return;
+    if( itemMenu !== null ){
+        router.options.routes = [];
+        
+        itemMenu.forEach(element => {
+            element.component= () => import(/* webpackChunkName: "HomeScreen" */ '@/modules/dashboard/layouts/DashboardLayout.vue');
+            
+            if(element.hasChild) {
 
-    // let routers = []
+                if(element.name=="404") {
+                    element.component=() => import('@/modules/shared/screens/NoScreenNotFound.vue')
+                }
+                
+                element.children.forEach(hijo => {
+                  hijo.component = () => import('@/modules/' + hijo.import + '.vue');
+                }); 
+        
+            }     
+        });
 
-    routerLocal.forEach(element => {
-        if( element.path === "/" && element.name === "Home" ){
-            element.component = () => import(/* webpackChunkName: "LoginLayout" */ '@/modules/dashboard/layouts/DashboardLayout.vue');
-        }
+        itemMenu.forEach(element => {
+            router.addRoute( element );
+        });
 
-        element?.children.forEach(elementChild => {
-            elementChild.component = () => import( elementChild.import )
-        }); 
+        router.options.routes = [...itemMenu]
 
-        router.addRoute( element )
-    });
-    
-    router.options.routes = [ ...routerLocal,  ...router.options.routes];  
+    }
 }

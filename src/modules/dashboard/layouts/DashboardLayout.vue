@@ -46,7 +46,7 @@
                 </transition>
             </router-view> -->
             <router-view></router-view>
-            <!-- <slot /> -->
+           
 
         </v-main>
 
@@ -57,8 +57,8 @@
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
-import { getTokenInformation, getCurrentUser, getMenu } from "../../login/helpers/localStorageHelper";
-//import { rebuildRoutes } from "../../../helpers/rebuildRoutes";
+import { getTokenInformation, getCurrentUser } from "../../login/helpers/localStorageHelper";
+import { buildMenu } from '../../login/helpers/menuIDM'
 export default {
     components:{
         AppBar: () => import('../components/AppBar.vue'),
@@ -82,14 +82,15 @@ export default {
         }
     },
     created(){
+    
         const credentials = getTokenInformation();
         const currentUser = getCurrentUser();
         if( credentials && currentUser) {
             
             this.setCurrentUser( currentUser );
-
-            this.menu = getMenu()
-        
+           
+            this.menu = buildMenu()
+            console.log(this.menu)
             // rebuildRoutes();
         }
     }

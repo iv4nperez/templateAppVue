@@ -4,12 +4,11 @@
         permanent
         :width="showDrawer ? '60' : '280'"
         app
-        :color="settingColor.colorStyleBackground"
-        class="elevation-8"
+        class="elevation-8 secondary"
     >
         <div 
             style="height: 64px"
-            :style="`background: ${ settingColor.colorStyleHeader }`"
+            class="primary"
         >
             <div v-if="showDrawer">
             <center>
@@ -47,7 +46,7 @@
         <div>
             <div 
                 style="height: 139px;"
-                :style="`background: ${ settingColor.colorStyleHeader }`"    
+                class="primary"    
             >
             <div v-if="!showDrawer">
                 <br />
@@ -60,14 +59,12 @@
                 <br />
                 <center>
                 <div
-                    :style="`background:${ settingColor.colorStyleBackground }`"
-                    class="circle-avatar-style"
+                    class="circle-avatar-style secondary"
                 >
                     <v-card-text>
                     <v-avatar
                         style="margin-left: -7px; margin-top: -7px"
                         class="mr-2"
-                        :color="settingColor.colorStyleBackground"
                         left
                         size="72"
                     >
@@ -85,9 +82,8 @@
             </div>
             <br />
             <br />
-            <v-subheader class="text-drawer" 
+            <v-subheader class="text-drawer secondary" 
                 style="font-size: 13px;" 
-                :style="`color: ${ settingColor.colorTextBackground }`"
                 v-if="!showDrawer">APPLICATIONS</v-subheader>
             <v-subheader v-else style="color:rgb(190, 193, 197)">------</v-subheader>
   
@@ -96,39 +92,41 @@
                 style="padding-top: 0px" 
                 nav 
                 dense 
-                :color="settingColor.colorStyleBackground"
+                class="secondary"
+                color="#e1e1e1"
+                dark
             >
+                
                 <template v-for="(item) in items">
-                    <template v-if="item.children">
+                    <template v-if="item.child">
 
                         <v-list-group
-                            color="gray"
+                            color="#e1e1e1"
                             :key="item.id"
                             no-action
+                            active-class="activeDrawer"
                         >
                        
                             <template v-slot:prependIcon >
-                                <v-icon :color="settingColor.colorTextBackground" v-text="item.icon" ></v-icon>
+                                <v-icon  v-text="item.icon" ></v-icon>
                             </template>
 
                             <template v-slot:activator  >
                                 <v-list-item-content>
                                     <v-list-item-title 
-                                        :style="`color: ${ settingColor.colorTextBackground }`"
+                                      
                                         class="text-drawer-menu" v-text="item.title"></v-list-item-title>
                                 </v-list-item-content>
                             </template>
                             <v-list-item
-                                v-for="( child) in item.children"
+                                v-for="( child) in item.child"
                                 dark
                                 link
                                 :key="child.id"
                                 :to="child.to"
-                                @click.stop="navigateTo(child.to)"
                             >
                                 <v-list-item-content>
                                     <v-list-item-title 
-                                        :style="`color: ${ settingColor.colorTextBackground }`"
                                         class="text-drawer-menu" v-text="child.title" ></v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -144,13 +142,12 @@
                                 :to="item.to" 
                             >
                                 <v-list-item-icon>
-                                    <v-icon :color="settingColor.colorTextBackground">{{ item.icon }}</v-icon> 
+                                    <v-icon>{{ item.icon }}</v-icon> 
                                 </v-list-item-icon>
 
                                 <v-list-item-content>
                                     <v-list-item-title>
-                                        <span 
-                                            :style="`color: ${ settingColor.colorTextBackground }`"
+                                        <span
                                             class="text-drawer-menu" >{{ item.title }}</span>
                                     </v-list-item-title>
                                 </v-list-item-content>     
@@ -168,14 +165,6 @@
 import { mapMutations, mapState } from 'vuex';
 export default {
     props: {
-        // colorStyleBackground: {
-        //     type: String,
-        //     default: '#121212'
-        // },
-        // colorStyleHeader:{
-        //     type: String,
-        //     default: '#192d3e'
-        // },
         colorFullName:{
             type: String,
             default: 'white'
@@ -208,10 +197,6 @@ export default {
             type: Boolean,
             default: false
         },
-        styleBackground:{
-            type: String,
-            default: 'primary-white'
-        },
         items:{
             type: Array,
             required: true
@@ -220,49 +205,7 @@ export default {
     data(){
         return {
             value: false,
-            // items: [
-            //     {
-            //         id: 1,
-            //         icon: 'mdi-view-dashboard-outline',
-            //         title: 'Dashboard',
-            //         to: '/inicio'
-            //     },
-            //     {
-            //         id: 2,
-            //         icon: 'mdi-view-dashboard-outline',
-            //         title: 'Components',
-            //         child: [
-            //             { 
-            //                 id: 4,
-            //                 title: 'Calendar',
-            //                 to: '/calendar' 
-            //             },
-            //             { 
-            //                 id: 5,
-            //                 title: 'Login v1',
-            //                 to: '/login' 
-            //             },
-            //             { 
-            //                 id: 6,
-            //                 title: 'Login v2',
-            //                 to: '/loginv2' 
-            //             }
-            //         ],
-            //     },
-            //     {
-            //         id: 3,
-            //         icon: 'mdi-checkbox-multiple-blank-outline',
-            //         title: 'Example Screen',
-            //         child: [
-            //             { 
-            //                 id: 7,
-            //                 title: 'About',
-            //                 to: 'About' 
-            //             },
-            //         ],
-            //     },
-                
-            // ],
+            hideItemsDrawer: true
         }
     },
     methods:{
@@ -290,51 +233,17 @@ export default {
                 this.setValueDrawer( value );
             }
         },
-        settingColor(){
-
-            switch( this.styleBackground ){
-                case 'primary-white': 
-                    return {
-                        colorStyleHeader:'#29307d',
-                        colorStyleBackground:'#ffffff',
-                        colorTextBackground: '#5e5c5b'
-                    };
-                case 'primary-full-white': 
-                    return {
-                        colorStyleHeader:'#1b2330',
-                        colorStyleBackground:'#252f3e',
-                        colorTextBackground: '#c9ccd0'
-                    };
-                case 'orange-white': 
-                    return {
-                        colorStyleHeader:'#ff5000',
-                        colorStyleBackground:'#ffffff',
-                        colorTextBackground: '#5e5c5b'
-                    }
-                case 'primary-sky-white': 
-                    return {
-                        colorStyleHeader:'#1d99d6',
-                        colorStyleBackground:'#ffffff',
-                        colorTextBackground: '#5e5c5b'
-                    }
-                case 'gray-white': 
-                    return {
-                        colorStyleHeader:'#405565',
-                        colorStyleBackground:'#ffffff',
-                        colorTextBackground: '#5e5c5b'
-                    }
-               
-                default:
-                    return {
-                        colorStyleHeader:'#252f3e',
-                        colorStyleBackground:'#1b2330',
-                    }
-            }
-        }
     },
     watch:{
         breakPoint(){
             this.setSizeScreen();
+        },
+        showDrawer(value){
+            if( value === true ){
+                this.hideItemsDrawer = false;
+            }else{
+                this.hideItemsDrawer = true;
+            }
         }
     },
     created(){
