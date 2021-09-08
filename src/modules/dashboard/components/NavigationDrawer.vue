@@ -82,8 +82,8 @@
             </div>
             <br />
             <br />
-            <v-subheader class="text-drawer secondary" 
-                style="font-size: 13px;" 
+            <v-subheader class="text-drawer secondary white--text" 
+                style="font-size: 13px;"
                 v-if="!showDrawer">APPLICATIONS</v-subheader>
             <v-subheader v-else style="color:rgb(190, 193, 197)">------</v-subheader>
   

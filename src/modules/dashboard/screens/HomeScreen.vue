@@ -17,6 +17,76 @@
         ></v-select>
       </v-col>
     </v-row>
+     <v-row>
+      <v-col xl="3" lg="3" md="3" sm="6" cols="12">
+        <v-card height="250" style="border-radius: 15px;">
+          <v-card-text>
+            <br>
+             <center class="mt-7">
+              <div>
+                <span style="width: 100%;    font-size: 45px;font-weight: bold;color: #6b2c57;">25</span><br>
+                <span style="width: 100%;    font-size: 20px;color: #6b2c57;" >Due Task</span>
+                <br>
+                <br>
+                <br>
+                <span style="width: 100%;    font-size: 20px;color: #7b7b7b;" >Complete: 7</span>
+              </div>
+             </center>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col xl="3" lg="3"  md="3" sm="6" cols="12">
+        <v-card height="250" style="border-radius: 15px;">
+          <v-card-text>
+            <br>
+             <center class="mt-7">
+              <div>
+                <span style="width: 100%;    font-size: 45px;font-weight: bold;color: #6b2c57;">25</span><br>
+                <span style="width: 100%;    font-size: 20px;color: #6b2c57;" >Due Task</span>
+                <br>
+                <br>
+                <br>
+                <span style="width: 100%;    font-size: 20px;color: #7b7b7b;" >Complete: 7</span>
+              </div>
+             </center>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col xl="3" lg="3"  md="3" sm="6" cols="12">
+        <v-card height="250" style="border-radius: 15px;">
+          <v-card-text>
+            <br>
+             <center class="mt-7">
+              <div>
+                <span style="width: 100%;    font-size: 45px;font-weight: bold;color: #6b2c57;">25</span><br>
+                <span style="width: 100%;    font-size: 20px;color: #6b2c57;" >Due Task</span>
+                <br>
+                <br>
+                <br>
+                <span style="width: 100%;    font-size: 20px;color: #7b7b7b;" >Complete: 7</span>
+              </div>
+             </center>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col xl="3" lg="3"  md="3" sm="6" cols="12">
+        <v-card height="250" style="border-radius: 15px;">
+          <v-card-text>
+            <br>
+             <center class="mt-7">
+              <div>
+                <span style="width: 100%;    font-size: 45px;font-weight: bold;color: #6b2c57;">25</span><br>
+                <span style="width: 100%;    font-size: 20px;color: #6b2c57;" >Due Task</span>
+                <br>
+                <br>
+                <br>
+                <span style="width: 100%;    font-size: 20px;color: #7b7b7b;" >Complete: 7</span>
+              </div>
+             </center>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols="12" sm="12" xl="8" md="12" lg="8" >
         <v-card style="border-radius: 0px" elevation="5" height="350">
