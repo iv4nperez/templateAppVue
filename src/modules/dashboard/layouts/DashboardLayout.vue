@@ -36,18 +36,14 @@
         />
 
         <v-main class="ma-10">
-            {{this.$vuetify.breakpoint.name}}
-            <!-- {{currentUser}} -->
-            <!-- <router-view v-slot="{ Component }">
+            <router-view v-slot="{ Component }">
                 <transition>
                     <keep-alive>
                         <component :is="Component" />
                     </keep-alive>
                 </transition>
-            </router-view> -->
-            <router-view></router-view>
-           
-
+            </router-view>
+            <!-- <router-view></router-view> -->
         </v-main>
 
 
@@ -89,9 +85,7 @@ export default {
             
             this.setCurrentUser( currentUser );
            
-            this.menu = buildMenu()
-            console.log(this.menu)
-            // rebuildRoutes();
+            this.menu = buildMenu();
         }
     }
 }

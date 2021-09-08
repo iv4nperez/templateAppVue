@@ -24,7 +24,7 @@ export const loginAuth = async (context , payload ) => {
     paramModel.AppName = applicationName.AppNameIDM;
     paramModel.AppNameSecurity = applicationName.AppNameSecurity
     paramModel.Grant_type = applicationName.Grant_type
-
+    
     let { data } = await http.post('/Authenticate', paramModel, 'IDM');
 
     if( data ){

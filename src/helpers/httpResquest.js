@@ -1,18 +1,20 @@
 import axios from "axios";
-// import { getToken } from "../modules/login/helpers/localStorageHelper";
 import store from '../store/index';
-
-// let tokenConfig = getToken();
 
 const headerConfig = {
     Accept: "application/json",
     "Content-Type": "application/json;charset=UTF-8",
-    // 'Authorization': `${tokenConfig?.token_type} ${tokenConfig?.access_token}`
 }
 
 
 export const http = {
-    
+    /**
+     * Http realiza pecitiones de tipo GET a cualquier end-point
+     * @param {String} endPoint recibe en end-point de la ruta
+     * @param {Object} [params] Parametros que se envian atra vez de la petición
+     * @param {String} [nameUlrBase] Nombre del edn-point a usar
+     * @returns {Object}
+     */
     get: function ( endPoint = "", params = {}, nameUlrBase = settingHttp.urlBase[0].name ) {
         let urlBase = getUrlBaseByName( nameUlrBase );
         return new Promise(( resolve, reject ) => {
@@ -109,11 +111,7 @@ export const http = {
 }
 
 export const settingHttp = {
-    urlBase: [
-        {
-            url: 'https://jsonplaceholder.typicode.com', name:'apiac'
-        }
-    ]
+    urlBase: []
 }
 
 
