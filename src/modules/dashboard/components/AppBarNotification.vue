@@ -1,19 +1,20 @@
 <template>
     <div>
         <v-snackbar
-            v-model="snackbar"
+            v-model="showError"
             timeout="7000"
             right
+            top
             color="red lighten-1"
         >
         <v-icon class="mr-2">mdi-alert-circle-outline</v-icon>
-        Test Prueba: Ha ocurrido un error intenta mas tarde o prueba en otro momento...
+        {{ errorHttp.message }}
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="white"
                     icon
                     v-bind="attrs"
-                    @click="snackbar = false"
+                    @click="showError = false"
                 >
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -22,11 +23,29 @@
     </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
     name:'AppBarNotification',
     data(){
         return {
             snackbar: true
+        }
+    },
+    methods:{
+        ...mapMutations('dashboard', ['setErrorHttp'])
+    },
+    computed:{
+        ...mapState('dashboard', ['errorHttp']),
+        showError:{
+            get () {
+                return this.errorHttp.isError;
+            },
+            set (value) {
+                this.SET_ERROR_HTTP({
+                    isError: value,
+                    message: ''
+                });
+            }
         }
     }
 }

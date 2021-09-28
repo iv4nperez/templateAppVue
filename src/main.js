@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import axios from "./modules/login/middleware/axiosMiddleware"
+import axios from "../src/modules/login/middleware/axiosMiddleware"
 import { setConnection } from "./helpers/connection";
 import { rebuildRoutes } from './helpers/rebuildRoutes'
 import '../src/assets/fonts/ProductSans-Black.woff'

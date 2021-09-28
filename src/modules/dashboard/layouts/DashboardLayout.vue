@@ -55,6 +55,7 @@
 import { mapMutations, mapState } from "vuex";
 import { getTokenInformation, getCurrentUser } from "../../login/helpers/localStorageHelper";
 import { buildMenu } from '../../login/helpers/menuIDM'
+
 export default {
     components:{
         AppBar: () => import('../components/AppBar.vue'),
@@ -69,7 +70,7 @@ export default {
         }
     },
     methods:{
-        ...mapMutations('dashboard', ['setCurrentUser'])
+        ...mapMutations('dashboard', ['setCurrentUser']),
     },
     computed:{
         ...mapState('dashboard', ['currentUser','currentStyle']),

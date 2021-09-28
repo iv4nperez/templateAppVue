@@ -1,8 +1,4 @@
 
-// export const myGetter =  ( state ) => {
-//    return state;
-// }
-
 export const getEntriesByTerm =  (  state  ) => ( term = '' ) => {
     
     if ( term.length === 0 ) return state.entries
@@ -19,3 +15,4 @@ export const getEntryId =  (  state  ) => ( id = '') => {
 
     return { ...entry } //TODO re quita la referencia
 }
+

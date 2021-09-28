@@ -123,10 +123,16 @@
                         View report
                         <v-icon class="ml-3">mdi-arrow-right</v-icon>
                       </v-btn> -->
-                      <c-button large >
+                      
+                      <CButton 
+                        large
+                      >
                         View report
                         <v-icon class="ml-4">mdi-arrow-right</v-icon>
-                      </c-button>
+                      </CButton>
+
+
+
                     </v-col>
                   </v-row>
                 </div>
@@ -143,6 +149,9 @@
         </v-card>
       </v-col>
     </v-row>
+
+   
+
   </div>
 </template>
 <script>

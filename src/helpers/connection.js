@@ -7,11 +7,12 @@ export const setConnection = () => {
         settingHttp.urlBase = [
             //se pueden agregar las url bases que se necesite, es necesario que todas lleven url y name
             {
-                url: 'https://jsonplaceholder.typicode.com', name:'apiac'
+                url: 'https://jsonplaceholder.typicode.com', name:'Board'
             },
             {
                 url: 'https://appsdev.cotemar.com.mx/IDMApi/api', name:'IDM'
-            }
+            },
+            
         ]
     }else{
         //agregar url base de productivo
