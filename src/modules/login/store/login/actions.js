@@ -6,27 +6,43 @@ import { getCurrentUser } from '../../helpers/currentUser';
 import { saveCurrentUser, saveToken } from '../../helpers/localStorageHelper';
 import { /*buildMenu,*/ buildRoutes } from '../../helpers/menuIDM';
 import router from "../../../../router";
+
 // Las Actions son tareas asincronas que pueden llamar una mutacion
 
 export const loginAuth = async (context , payload ) => {
 
-    let encryptedText = await CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(payload.password), "S1VualhoYVhxYlE9");
-    let passEncript = encryptedText.toString();
+    console.log(applicationName)
+    debugger
+    const key = CryptoJS.enc.Utf8.parse(applicationName.KeyIDM);
+    const iv = CryptoJS.enc.Utf8.parse(applicationName.KeyIDM);
+
+    const message = CryptoJS.enc.Utf8.parse(payload.Password);
+    const encrypted = CryptoJS.AES.encrypt(message, key, {
+      keySize: 16,
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+    let encryptedText = encrypted.toString();
+
+
     let paramModel = {  ...payload };
 
-    delete paramModel.RemenberMe
     
-    if ( paramModel.TypeCredential === 2 ){
-        paramModel.Password = passEncript;
+    delete paramModel.RemenberMe
+    delete paramModel.DirectorioActivo
+
+    if ( paramModel.TypeCredential === 0 ){
+        paramModel.Password = encryptedText;
         paramModel.IsEncrypted = true;
     }
 
     paramModel.AppName = applicationName.AppNameIDM;
     paramModel.AppNameSecurity = applicationName.AppNameSecurity
     paramModel.Grant_type = applicationName.Grant_type
-    
+    debugger
     let { data } = await http.post('/Authenticate', paramModel, 'IDM');
-
+    debugger
     if( data ){
         //save token
         saveToken(data);

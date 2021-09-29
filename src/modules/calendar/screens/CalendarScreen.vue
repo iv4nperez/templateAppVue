@@ -164,15 +164,14 @@
                 :headers="headers"
                 :items="items"
                 :items-per-page="8000"
-                :single-select="false"
-                show-select
+            
                 class="elevation-0"
                 item-key="id"
             >
                 <template v-slot:[`item.n`]="{index}">
                     {{ index + 1 }}
                 </template>
-                <!-- <template v-slot:[`item.actions`]="{item}">
+                <template v-slot:[`item.actions`]="{item}">
                     <v-btn
                         color="primary"
                         icon
@@ -197,7 +196,7 @@
                         <v-icon>mdi-delete-outline</v-icon>
                     </v-btn>
                     
-                </template> -->
+                </template>
 
                 <template v-slot:[`item.descripcion`]="{item}">
                     
@@ -273,7 +272,7 @@ export default {
                 { text: 'Descripción', value: 'descripcion' },
                 { text: 'Documentación', value: 'documentacion', width: 90, sortable: false },
                 { text: 'Invitados', value: 'invitados' , align: 'center'},
-                //{ text: 'Actions', value: 'actions', sortable: false ,width: 140, align: 'center', },
+                { text: 'Actions', value: 'actions', sortable: false ,width: 140, align: 'center', },
             ],
             items: [
                 {

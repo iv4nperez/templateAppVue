@@ -2,8 +2,9 @@ import axios from "axios";
 import store from '../store/index';
 
 const headerConfig = {
-    Accept: "application/json",
+    Accept: "application/json, text/plain, /",
     "Content-Type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*",
 }
 
 

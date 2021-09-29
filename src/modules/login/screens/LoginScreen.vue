@@ -67,15 +67,28 @@
 
                             <v-row>
                                 <v-col class="RCol-01">
+                                   
+                                    <v-switch
+                                        v-model="user.DirectorioActivo"
+                                        :label="`Directorio Activo`"
+                                        style="margin-top: 0;"
+                                    >
+                                        <template v-slot:label>
+                                        <span style="color: gray !important"
+                                            >Directorio Activo</span
+                                        >
+                                        </template>
+                                    </v-switch>
+                                    
+                                </v-col>
+                                <v-col class="RCol-01">
                                     <v-checkbox
                                     color="#61dafb"
                                     class="CbL-01"
                                     label="Recordar cuenta"
                                     ></v-checkbox>
                                 </v-col>
-                                <v-col class="RCol-01">
-                                    <!-- <a class="RCol-R-01">Recuperar contraseña</a> -->
-                                </v-col>
+                                
                             </v-row>
 
                             <v-row>
@@ -140,8 +153,8 @@ export default {
         return{
             showPassword: false,
             user: {
-                UserName: 'aiperezc',
-                Password: `ivpech12327!"#$`,
+                UserName: '',
+                Password: '',
                 DirectorioActivo: true,
                 RemenberMe: false,
                 TypeCredential: 0,
@@ -151,7 +164,7 @@ export default {
     methods:{
         ...mapActions('login', ['loginAuth']),
         login(){
-            this.user.TypeCredential = 1;
+            this.user.TypeCredential = this.user.DirectorioActivo ? 1 : 0;
             this.loginAuth( this.user )
         }
     },

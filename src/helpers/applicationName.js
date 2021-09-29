@@ -1,5 +1,6 @@
 export const applicationName = {
     AppNameIDM: 'IDM',
-    AppNameSecurity:'appExampleVue',
-    Grant_type:'password'
+    AppNameSecurity:'TemplateVue',
+    Grant_type:'password',
+    KeyIDM: 'TzZyUVE1SmhrOGs9'
 }
