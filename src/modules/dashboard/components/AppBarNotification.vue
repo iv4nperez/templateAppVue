@@ -41,7 +41,7 @@ export default {
                 return this.errorHttp.isError;
             },
             set (value) {
-                this.SET_ERROR_HTTP({
+                this.setErrorHttp({
                     isError: value,
                     message: ''
                 });
