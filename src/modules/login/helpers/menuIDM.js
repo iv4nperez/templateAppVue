@@ -55,7 +55,18 @@ export const buildRoutes = async ( webRoutes = [] ) => {
             icon: element.ParentIcon,
             order: element.ParentOrder,
             hasChild: true,
-            meta:{requireAuth:true},
+            meta:{
+                requireAuth:true,
+                progress: {
+                    func: [
+                      {call: 'color', modifier: 'temp', argument: '#ffb000'},
+                      {call: 'fail', modifier: 'temp', argument: '#6e0000'},
+                      {call: 'location', modifier: 'temp', argument: 'top'},
+                      {call: 'transition', modifier: 'temp', argument: {speed: '1.5s', opacity: '0.6s', termination: 400}}
+                    ]
+                }
+            
+            },
             component: () => import(/* webpackChunkName: "HomeScreen" */ '@/modules/dashboard/layouts/DashboardLayout.vue'),
         }   
 

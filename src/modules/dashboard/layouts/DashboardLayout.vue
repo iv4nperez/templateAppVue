@@ -36,6 +36,7 @@
         />
 
         <v-main class="ma-10">
+            <vue-progress-bar></vue-progress-bar>
             <router-view v-slot="{ Component }">
                 <transition>
                     <keep-alive>
@@ -43,6 +44,7 @@
                     </keep-alive>
                 </transition>
             </router-view>
+            
             <!-- <router-view></router-view> -->
         </v-main>
 
@@ -88,6 +90,27 @@ export default {
            
             this.menu = buildMenu();
         }
+
+        this.$Progress.start()
+        this.$router.beforeEach((to, from, next) => {
+       
+        if (to.meta.progress !== undefined) {
+            let meta = to.meta.progress
+            this.$Progress.parseMeta(meta)
+        }
+
+            this.$Progress.start()
+            next()
+        });
+        
+        this.$router.afterEach((to, from) => {  
+            this.$Progress.finish()
+        })
+
+
+    },
+    mounted(){
+        this.$Progress.finish()
     }
 }
 </script>
