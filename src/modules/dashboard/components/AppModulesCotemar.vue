@@ -26,7 +26,8 @@
           <v-card>
             <v-card-text style="height: 300px">
               <v-row style="width: 300px">
-                <v-col v-for="(item, index) in icons" :key="index">
+                <div v-for="(item, index) in icons" :key="index">
+                  <v-col >
                   <div
                     class="selectionhover"
                     style="width: 75px; border-radius: 6px"
@@ -37,7 +38,7 @@
                       style="text-decoration: none"
                     >
                       <center>
-                        <img class="mt-2" width="35" :src="item.src" alt="" />
+                        <img class="mt-2" width="60" :src="item.src" :alt="item.name" />
                         <p style="margin-bottom: 0px; color: #888888">
                           {{ item.name }}
                         </p>
@@ -45,6 +46,7 @@
                     </a>
                   </div>
                 </v-col>
+                </div>
               </v-row>
             </v-card-text>
           </v-card>
@@ -52,6 +54,7 @@
       </div>
 </template>
 <script>
+
 export default {
     name:'AppModulesCotemar',
     props:{
@@ -65,24 +68,29 @@ export default {
             menu: false,
             icons: [
                 {
-                    src: "https://image.flaticon.com/icons/svg/2111/2111436.svg",
-                    name: "Drive",
-                    url: "https://drive.google.com/drive/u/0/my-drive",
+                    src: require('@/assets/logosystems/Cotplay.png'),
+                    name: "Cotplay",
+                    url: "https://templateappvue.netlify.app/#/Home/Dashboard",
                 },
                 {
-                    src: "https://image.flaticon.com/icons/svg/281/281769.svg",
-                    name: "Gmail",
-                    url: "https://mail.google.com/mail/u/0/?tab=cm",
+                    src: require('@/assets/logosystems/PermisosTrabajo.png'),
+                    name: "P. Trabajo",
+                    url: "https://templateappvue.netlify.app/#/Home/Dashboard",
                 },
                 {
-                    src: "https://image.flaticon.com/icons/svg/2991/2991108.svg",
-                    name: "Docs",
-                    url: "https://docs.google.com/document/u/0/?tgif=d",
+                    src: require('@/assets/logosystems/Taakin.png'),
+                    name: "Taakin",
+                    url: "https://templateappvue.netlify.app/#/Home/Dashboard",
                 },
                 {
-                    src: "https://image.flaticon.com/icons/svg/2991/2991211.svg",
-                    name: "Calendar",
-                    url: "https://calendar.google.com/calendar/r?tab=Cc",
+                    src: require('@/assets/logosystems/SGM.png'),
+                    name: "SGM",
+                    url: "https://templateappvue.netlify.app/#/Home/Dashboard",
+                },
+                {
+                    src: require('@/assets/logosystems/Spectrum.png'),
+                    name: "Spectrum",
+                    url: "https://templateappvue.netlify.app/#/Home/Dashboard",
                 },
             ],
         }
